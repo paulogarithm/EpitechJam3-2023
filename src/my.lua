@@ -4,7 +4,7 @@ local function convertArgs(arg)
         for key, value in pairs(arg) do
             ret = ret .. "  " .. tostring(key) .. " = " .. tostring(value) ..",\n"
         end
-        ret = ret .. "}\n"
+        ret = ret .. "}"
         return ret
     end
     return tostring(arg)
@@ -18,5 +18,14 @@ _G.print = function (...)
         format[i] = convertArgs(arg)
     end
     local formattedText = table.concat(format, "\n")
-    io.write(formattedText)
+    io.write(formattedText .. "\n")
+end
+
+_G.table.seek = function (table, callback)
+    for key, val in table do
+        if callback(key, val) == true then
+            return key
+        end
+    end
+    return nil
 end
