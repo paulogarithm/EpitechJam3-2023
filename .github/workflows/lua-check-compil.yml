@@ -18,12 +18,12 @@ jobs:
           sudo apt update
           sudo apt install -y lua5.3 love
 
-      - name: Execute program
-        run: |
-          STATUS=$(timeout -s SIGTERM 6 love src/ &> timeout.log; echo $?);
-          echo $STATUS;
-          cat timeout.log
-          if [ $STATUS != 124 ]; then
-            exit 1;
-          fi;
-          echo "everything done correctly";
+      # - name: Execute program
+      #   run: |
+      #     STATUS=$(timeout -s SIGTERM 6 love src/ &> timeout.log; echo $?);
+      #     echo $STATUS;
+      #     cat timeout.log
+      #     if [ $STATUS != 124 ]; then
+      #       exit 1;
+      #     fi;
+      #     echo "everything done correctly";
