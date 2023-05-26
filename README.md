@@ -1,4 +1,4 @@
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Yin_yang.svg/2048px-Yin_yang.svg.png" width="256" align="right"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Yin_yang.svg/2048px-Yin_yang.svg.png" width="20%" align="right"/>
 
 <h1 align='center'>
   Hoppy Jam
