@@ -4,6 +4,20 @@ import os
 import platform
 import requests
 import zipfile
+import threading
+import time
+
+chars = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"],
+
+def spinner(message: str, event: threading.Event) -> None:
+    i = 0
+    while not event.is_set():
+        time.sleep(.1)
+        i += 1
+        print(chars[0][i % len(chars[0])], message)
+        print("\033[10D\033[1A", end='')
+    print("\033[2K")
+    print("\033[2A")
 
 LOVE_URLS = {
     'Windows': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-win64.zip',
@@ -36,7 +50,12 @@ if __name__ == '__main__':
     os.makedirs('./boot', exist_ok=True)
     love_path = './boot/love'
     if not os.path.exists(love_path):
-        print(f"Downloading Love for '{platform_name}'...")
+        event = threading.Event()
+        spinner_thread = threading.Thread(target=spinner, args=(f"Downloading Love for '{platform_name}'...", event))
+        spinner_thread.start()
         download_love(platform_name)
+
+        event.set()
+        spinner_thread.join()
         print("Love has been installed !")
     os.system(f"{love_path} ./src/")
