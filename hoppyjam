@@ -45,6 +45,11 @@ def download_love(platform_name):
     os.remove(archive_path)
 
 if __name__ == '__main__':
+    love_installed = os.system('which love >/dev/null 2>&1') == 0
+    if love_installed:
+        os.system('love ./src/')
+        exit(0)
+
     platform_name = platform.system()
     os.makedirs('./boot', exist_ok=True)
     love_path = './boot/love'

@@ -1,30 +1,30 @@
-local input     = require('./input')
-local my        = require('./my')
-local timer     = require('./timer')
-local menu      = require('./menu')
+local input         = require('./input')
+local my            = require('./my')
+local timer         = require('./timer')
+local menu          = require('./menu')
+local all_timers    = require('./all_timers')
+local all_sprites   = require('./all_sprites')
 
-local sprites = {}
-local workdir = love.filesystem.getWorkingDirectory()
+local scenes = {}
+scenes.menu = {name = "menu", sprites = {}}
+scenes.game = {name = "game", sprites = {}}
 
 love.load = function()
+    
+    scenes = all_sprites(scenes)
+    _G.scene = scenes.menu
+    --] _G.scene = scenes.game
+
     love.graphics.setBackgroundColor(255, 255, 255)
-
-    timer:Create("hello", 1, function()
-        print("hello")
-    end)
-
-    local sprite = {}
-    sprite.image = love.graphics.newImage("assets/perso.png")
-    sprite.quad = love.graphics.newQuad(0, 0, sprite.image:getWidth(), sprite.image:getHeight(), sprite.image:getDimensions())
-    table.insert(sprites, sprite)
-    menu = require("menu")
 end
 
 love.draw = function ()
-    for _, sprite in pairs(sprites) do
+    if _G.scene.name == "menu" then
+        return menu.draw()
+    end
+    for _, sprite in pairs(_G.scene.sprites) do
         love.graphics.draw(sprite.image, sprite.quad, 100, 100)
     end
-    menu.draw()
 end
 
 love.update = function (dt)
