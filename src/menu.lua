@@ -1,8 +1,13 @@
 -- Menu state
 local menu = {}
 
+local clickSound
+local startSound
+
 menu.selectedOption = 1
 menu.options = {"Start", "Options", "Exit"}
+clickSound = love.audio.newSource("assets/click.mp3", "static")
+startSound = love.audio.newSource("assets/start.mp3", "static")
 
 function menu.update(dt)
   -- Update menu logic
@@ -15,7 +20,7 @@ function menu.draw()
   love.graphics.setFont(love.graphics.newFont(32)) -- Set font and size
 
   -- Draw menu title
-  local titleText = "HoppyJam"
+  local titleText = "Main Menu"
   local titleX = love.graphics.getWidth() / 2 - love.graphics.getFont():getWidth(titleText) / 2
   local titleY = 100
   love.graphics.print(titleText, titleX, titleY)
@@ -36,6 +41,10 @@ function menu.draw()
   end
 end
 
+function love.load()
+  menu.load()
+end
+
 function love.keypressed(key)
   -- Handle keypress events
   menu.keypressed(key)
@@ -47,13 +56,16 @@ function menu.keypressed(key)
     if menu.selectedOption < 1 then
       menu.selectedOption = #menu.options
     end
+    love.audio.play(clickSound) -- Play click sound when changing the selected option
   elseif key == "down" or key == "s" then
     menu.selectedOption = menu.selectedOption + 1
     if menu.selectedOption > #menu.options then
       menu.selectedOption = 1
     end
+    love.audio.play(clickSound) -- Play click sound when changing the selected option
   elseif key == "return" then
     if menu.selectedOption == 1 then
+      love.audio.play(startSound) -- Play start sound when selecting the "Start" option
       -- Start the game
     elseif menu.selectedOption == 2 then
       -- Open options menu
