@@ -31,6 +31,7 @@ local checkMouvment = function (key, press)
 end
 
 local checkMenu = function (key)
+    if _G.scene ~= "Menu" then return end
     menu.keypressed(key)
 end
 
