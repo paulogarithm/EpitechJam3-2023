@@ -5,6 +5,7 @@ local menu          = require('./menu')
 local all_timers    = require('./all_timers')
 local all_sprites   = require('./all_sprites')
 local Vector        = require('./vector')
+local map           = require('./create_maps')
 
 _G.scenes = {}
 _G.scenes.Game = {sprites = {}, color = {255, 255, 255}, maps = {}}
@@ -21,6 +22,7 @@ love.load = function()
             ::continue::
         end
     end
+    map.Setup()
     _G.changeScene("Menu")
     menu.load()
 end

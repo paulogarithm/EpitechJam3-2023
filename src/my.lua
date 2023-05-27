@@ -30,13 +30,13 @@ _G.table.seek = function (table, callback)
     return nil
 end
 
-function string:split(self, sep)
+function string.split(str, sep)
     if sep == nil then
         sep = "%s"
     end
     local t = {}
-    for str in self:gmatch("([^"..sep.."]+)") do
-        table.insert(t, str)
+    for s in str:gmatch("([^"..sep.."]+)") do
+        table.insert(t, s)
     end
     return t
 end
