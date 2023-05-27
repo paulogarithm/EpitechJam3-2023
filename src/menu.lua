@@ -11,6 +11,7 @@ startSound = love.audio.newSource("assets/start.mp3", "stream")
 
 menu.currentState = "main"
 menu.optionsMenu = {"Sound", "Video", "Back"}
+menu.soundOptionsMenu = {"Sound On", "Sound Off", "Back"}
 
 function menu.draw()
     love.graphics.setBackgroundColor(0, 0, 0)
@@ -37,11 +38,24 @@ function menu.draw()
             end
         end
     elseif menu.currentState == "options" then
-        -- Draw options menu
         local centerX = love.graphics.getWidth() / 2
         local centerY = love.graphics.getHeight() / 2
         local lineHeight = 60
         for i, option in ipairs(menu.optionsMenu) do
+            local optionY = centerY + (i - 1) * lineHeight
+            if i == menu.selectedOption then
+                love.graphics.setFont(love.graphics.newFont(24))
+                love.graphics.printf("> " .. option, centerX - 150, optionY, 300, "center")
+            else
+                love.graphics.setFont(love.graphics.newFont(18))
+                love.graphics.printf(option, centerX - 100, optionY, 200, "center")
+            end
+        end
+    elseif menu.currentState == "soundOptions" then
+        local centerX = love.graphics.getWidth() / 2
+        local centerY = love.graphics.getHeight() / 2
+        local lineHeight = 60
+        for i, option in ipairs(menu.soundOptionsMenu) do
             local optionY = centerY + (i - 1) * lineHeight
             if i == menu.selectedOption then
                 love.graphics.setFont(love.graphics.newFont(24))
@@ -100,12 +114,38 @@ function menu.keypressed(key)
             love.audio.play(clickSound)
         elseif key == "return" then
             if menu.selectedOption == 1 then
-                -- Handle sound options
+                menu.currentState = "soundOptions"
+                menu.selectedOption = 1
             elseif menu.selectedOption == 2 then
                 -- Handle graphics options
             elseif menu.selectedOption == 3 then
                 menu.currentState = "main"
                 menu.selectedOption = 2
+            end
+        end
+    elseif menu.currentState == "soundOptions" then
+        if key == "up" or key == "z" then
+            menu.selectedOption = menu.selectedOption - 1
+            if menu.selectedOption < 1 then
+                menu.selectedOption = #menu.soundOptionsMenu
+            end
+            love.audio.play(clickSound)
+        elseif key == "down" or key == "s" then
+            menu.selectedOption = menu.selectedOption + 1
+            if menu.selectedOption > #menu.soundOptionsMenu then
+                menu.selectedOption = 1
+            end
+            love.audio.play(clickSound)
+        elseif key == "return" then
+            if menu.selectedOption == 1 then
+                clickSound:setVolume(1)
+                startSound:setVolume(1)
+            elseif menu.selectedOption == 2 then
+                clickSound:setVolume(0)
+                startSound:setVolume(0)
+            elseif menu.selectedOption == 3 then
+                menu.currentState = "options"
+                menu.selectedOption = 1
             end
         end
     end
