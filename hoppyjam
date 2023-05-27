@@ -28,7 +28,7 @@ LOVE_URLS = {
 def download_love(platform_name):
     love_url = LOVE_URLS.get(platform_name)
     if not love_url:
-        raise ValueError(f"La plateforme '{platform_name}' n'est pas prise en charge.")
+        raise ValueError(f"[✗] Error - '{platform_name}' is not supported.")
 
     archive_path = './boot/love_archive'
 
@@ -42,7 +42,6 @@ def download_love(platform_name):
             zip_ref.extractall('./boot')
     else:
         os.system(f"tar -xzf {archive_path} -C ./boot --strip-components=1")
-
     os.remove(archive_path)
 
 if __name__ == '__main__':
