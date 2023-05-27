@@ -1,4 +1,3 @@
--- Menu state
 local menu = {}
 
 local clickSound
