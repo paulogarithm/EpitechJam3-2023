@@ -10,14 +10,14 @@ clickSound = love.audio.newSource("assets/click.mp3", "stream")
 startSound = love.audio.newSource("assets/start.mp3", "stream")
 
 menu.currentState = "main"
-menu.optionsMenu = {"Sound", "Graphics", "Back"}
+menu.optionsMenu = {"Sound", "Video", "Back"}
 
 function menu.draw()
     love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(love.graphics.newFont(32))
 
-    local titleText = "Main Menu"
+    local titleText = "HoppyJam"
     local titleX = love.graphics.getWidth() / 2 - love.graphics.getFont():getWidth(titleText) / 2
     local titleY = 100
     love.graphics.print(titleText, titleX, titleY)
@@ -74,13 +74,14 @@ function menu.keypressed(key)
             end
             love.audio.play(clickSound)
         elseif key == "return" then
+            love.audio.play(startSound)
             if menu.selectedOption == 1 then
-                love.audio.play(startSound)
                 _G.scene = "Game"
             elseif menu.selectedOption == 2 then
                 menu.currentState = "options"
                 menu.selectedOption = 1
             elseif menu.selectedOption == 3 then
+                love.audio.play(startSound)
                 love.event.quit()
             end
         end
