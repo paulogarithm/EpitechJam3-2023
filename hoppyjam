@@ -9,23 +9,30 @@ import threading
 import time
 from subprocess import Popen, PIPE
 
-chars = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]
-
-def spinner(message: str, event: threading.Event) -> None:
-    i = 0
-    while not event.is_set():
-        time.sleep(.1)
-        i = (i + 1) % len(chars[0])
-        print(chars[0][i], message)
-        print("\033[10D\033[1A", end='')
-    print("\033[2K")
-    print("\033[2A")
+CHARS = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]
 
 LOVE_URLS = {
     'Windows': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-win64.zip',
     'Linux': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-linux-x86_64.tar.gz',
     'Darwin': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-macos.zip'
 }
+
+def search_file_by_name(folder_path, file_name):
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file == file_name:
+                return os.path.join(root, file)
+    return None
+
+def spinner(message: str, event: threading.Event) -> None:
+    i = 0
+    while not event.is_set():
+        time.sleep(.1)
+        i = (i + 1) % len(CHARS[0])
+        print(CHARS[0][i], message)
+        print("\033[10D\033[1A", end='')
+    print("\033[2K")
+    print("\033[2A")
 
 
 def download_love(platform_name):
@@ -58,9 +65,9 @@ if __name__ == '__main__':
 
     platform_name = platform.system()
     os.makedirs('./boot', exist_ok=True)
-    love_path = './boot/love'
+    love_path = search_file_by_name('./boot/', 'love')
 
-    if not os.path.exists(love_path):
+    if not love_path or not os.path.exists(love_path):
         event = threading.Event()
         spinner_thread = threading.Thread(target=spinner, args=(f"Downloading Love for '{platform_name}'...", event))
         spinner_thread.start()
@@ -69,6 +76,8 @@ if __name__ == '__main__':
         event.set()
         spinner_thread.join()
         print("Love has been installed !")
+        love_path = search_file_by_name('./boot/', 'love')
+        os.system(f"chmod +x {love_path}")
     while True:
         from subprocess import Popen, PIPE
         process = Popen([love_path, "./src/"], stderr=PIPE)
@@ -77,6 +86,5 @@ if __name__ == '__main__':
         print(err)
         if exit_code != 256:
             break
-        print(err == b'AL lib: (WW) pulse_load: Failed to load libpulse.so.0\nAL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"\n')
         if err != 'AL lib: (WW) pulse_load: Failed to load libpulse.so.0\nAL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"\n':
             break
