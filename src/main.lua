@@ -28,16 +28,34 @@ love.load = function()
     _G.player.color = "white"
 end
 
-love.draw = function ()
+love.draw = function()
     if _G.scene == "Menu" then
         return menu.draw()
     end
+
     if _G.scene == "Game" then
+        local playerColor = _G.player.color
+
+        -- Set the color based on player.color
+        if playerColor == "white" then
+            love.graphics.setColor(255, 255, 255) -- White color
+        elseif playerColor == "black" then
+            love.graphics.setColor(0, 0, 0) -- Black color
+        end
+
         love.graphics.draw(
-            _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
+            _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y,
+            _G.player.rotation, _G.player.scale
+        )
     end
+
+    -- Reset the color to default (white)
+    love.graphics.setColor(255, 255, 255)
+
     for _, sprite in pairs(_G.scenes[_G.scene].sprites) do
-        love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
+        love.graphics.draw(
+            sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale
+        )
     end
 end
 
