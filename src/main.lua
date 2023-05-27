@@ -26,6 +26,7 @@ love.load = function()
     end
 
     _G.changeScene("Menu")
+    menu.load()
 end
 
 love.draw = function ()

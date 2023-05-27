@@ -3,11 +3,13 @@ local menu = {}
 
 local clickSound
 local startSound
+local menuSong
 
 menu.selectedOption = 1
 menu.options = {"Start", "Options", "Exit"}
 clickSound = love.audio.newSource("assets/click.mp3", "stream")
 startSound = love.audio.newSource("assets/start.mp3", "stream")
+menuSong = love.audio.newSource("assets/menu_song.mp3", "stream")
 
 menu.currentState = "main"
 menu.optionsMenu = {"Sound", "Video", "Back"}
@@ -85,6 +87,8 @@ end
 function menu.load()
     menu.selectedOption = 1
     menu.currentState = "main"
+    menuSong:setLooping(true)
+    menuSong:play()
 end
 
 function menu.keypressed(key)
@@ -105,6 +109,7 @@ function menu.keypressed(key)
             love.audio.play(startSound)
             if menu.selectedOption == 1 then
                 _G.changeScene("Game")
+                menuSong:stop()
             elseif menu.selectedOption == 2 then
                 menu.currentState = "options"
                 menu.selectedOption = 1
@@ -155,9 +160,13 @@ function menu.keypressed(key)
             if menu.selectedOption == 1 then
                 clickSound:setVolume(1)
                 startSound:setVolume(1)
+                menuSong:play()
+                menuSong:setVolume(1)
             elseif menu.selectedOption == 2 then
                 clickSound:setVolume(0)
                 startSound:setVolume(0)
+                menuSong:pause()
+                menuSong:setVolume(0)
             elseif menu.selectedOption == 3 then
                 menu.currentState = "options"
                 menu.selectedOption = 1
@@ -178,15 +187,23 @@ function menu.keypressed(key)
             love.audio.play(clickSound)
         elseif key == "return" then
             if menu.selectedOption == 1 then
-                -- Set light mode
+                love.graphics.setBackgroundColor(255, 255, 255)
             elseif menu.selectedOption == 2 then
-                -- Set dark mode
+                love.graphics.setBackgroundColor(0, 0, 0)
             elseif menu.selectedOption == 3 then
                 menu.currentState = "options"
                 menu.selectedOption = 2
             end
         end
     end
+end
+
+function menu.update(dt)
+    -- Update menu logic here
+end
+
+function menu.stop()
+    menuSong:stop()
 end
 
 return menu
