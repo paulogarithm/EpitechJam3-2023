@@ -1,4 +1,6 @@
+-- Menu state
 local menu = {}
+
 menu.selectedOption = 1
 menu.options = {"Start", "Options", "Exit"}
 
@@ -10,31 +12,42 @@ function menu.draw()
   -- Draw menu graphics
   love.graphics.setBackgroundColor(0, 0, 0) -- Set background color to black
   love.graphics.setColor(255, 255, 255) -- Set text color to white
-  love.graphics.setFont(love.graphics.newFont(24)) -- Set font and size
+  love.graphics.setFont(love.graphics.newFont(32)) -- Set font and size
+
+  -- Draw menu title
+  local titleText = "HoppyJam"
+  local titleX = love.graphics.getWidth() / 2 - love.graphics.getFont():getWidth(titleText) / 2
+  local titleY = 100
+  love.graphics.print(titleText, titleX, titleY)
 
   -- Draw menu options
   local centerX = love.graphics.getWidth() / 2
   local centerY = love.graphics.getHeight() / 2
-  local lineHeight = 30
+  local lineHeight = 60
   for i, option in ipairs(menu.options) do
     local optionY = centerY + (i - 1) * lineHeight
     if i == menu.selectedOption then
-      love.graphics.printf("> " .. option, centerX - 100, optionY, 200, "center")
+      love.graphics.setFont(love.graphics.newFont(24)) -- Set font and size for selected option
+      love.graphics.printf("> " .. option, centerX - 150, optionY, 300, "center")
     else
+      love.graphics.setFont(love.graphics.newFont(18)) -- Set font and size for non-selected options
       love.graphics.printf(option, centerX - 100, optionY, 200, "center")
     end
   end
 end
 
-function menu.keypressed(key)
+function love.keypressed(key)
   -- Handle keypress events
-  print(menu.selectedOption)
-  if key == "up" then
+  menu.keypressed(key)
+end
+
+function menu.keypressed(key)
+  if key == "up" or key == "z" then
     menu.selectedOption = menu.selectedOption - 1
     if menu.selectedOption < 1 then
       menu.selectedOption = #menu.options
     end
-  elseif key == "down" then
+  elseif key == "down" or key == "s" then
     menu.selectedOption = menu.selectedOption + 1
     if menu.selectedOption > #menu.options then
       menu.selectedOption = 1
