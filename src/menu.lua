@@ -12,12 +12,12 @@ startSound = love.audio.newSource("assets/start.mp3", "stream")
 menu.currentState = "main"
 menu.optionsMenu = {"Sound", "Video", "Back"}
 menu.soundOptionsMenu = {"Sound On", "Sound Off", "Back"}
+menu.videoOptionsMenu = {"Light Mode", "Dark Mode", "Back"}
 
 function menu.draw()
     love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.setColor(255, 255, 255)
     love.graphics.setFont(love.graphics.newFont(32))
-
     local titleText = "HoppyJam"
     local titleX = love.graphics.getWidth() / 2 - love.graphics.getFont():getWidth(titleText) / 2
     local titleY = 100
@@ -56,6 +56,20 @@ function menu.draw()
         local centerY = love.graphics.getHeight() / 2
         local lineHeight = 60
         for i, option in ipairs(menu.soundOptionsMenu) do
+            local optionY = centerY + (i - 1) * lineHeight
+            if i == menu.selectedOption then
+                love.graphics.setFont(love.graphics.newFont(24))
+                love.graphics.printf("> " .. option, centerX - 150, optionY, 300, "center")
+            else
+                love.graphics.setFont(love.graphics.newFont(18))
+                love.graphics.printf(option, centerX - 100, optionY, 200, "center")
+            end
+        end
+    elseif menu.currentState == "videoOptions" then
+        local centerX = love.graphics.getWidth() / 2
+        local centerY = love.graphics.getHeight() / 2
+        local lineHeight = 60
+        for i, option in ipairs(menu.videoOptionsMenu) do
             local optionY = centerY + (i - 1) * lineHeight
             if i == menu.selectedOption then
                 love.graphics.setFont(love.graphics.newFont(24))
@@ -117,7 +131,8 @@ function menu.keypressed(key)
                 menu.currentState = "soundOptions"
                 menu.selectedOption = 1
             elseif menu.selectedOption == 2 then
-                -- Handle graphics options
+                menu.currentState = "videoOptions"
+                menu.selectedOption = 1
             elseif menu.selectedOption == 3 then
                 menu.currentState = "main"
                 menu.selectedOption = 2
@@ -146,6 +161,29 @@ function menu.keypressed(key)
             elseif menu.selectedOption == 3 then
                 menu.currentState = "options"
                 menu.selectedOption = 1
+            end
+        end
+    elseif menu.currentState == "videoOptions" then
+        if key == "up" or key == "z" then
+            menu.selectedOption = menu.selectedOption - 1
+            if menu.selectedOption < 1 then
+                menu.selectedOption = #menu.videoOptionsMenu
+            end
+            love.audio.play(clickSound)
+        elseif key == "down" or key == "s" then
+            menu.selectedOption = menu.selectedOption + 1
+            if menu.selectedOption > #menu.videoOptionsMenu then
+                menu.selectedOption = 1
+            end
+            love.audio.play(clickSound)
+        elseif key == "return" then
+            if menu.selectedOption == 1 then
+                -- Set light mode
+            elseif menu.selectedOption == 2 then
+                -- Set dark mode
+            elseif menu.selectedOption == 3 then
+                menu.currentState = "options"
+                menu.selectedOption = 2
             end
         end
     end
