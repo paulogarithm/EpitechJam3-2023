@@ -32,10 +32,17 @@ local checkMenu = function (key)
     return true
 end
 
+local CheckShapeShift = function (key)
+    if _G.scene ~= "Game" then return end
+    if key ~= "r" then return end
+    print(_G.player.color)
+    return true
+end
+
 love.keypressed = function (key)
     if checkMouvment(key, true) then return end
     if not checkMenu(key) then return end
-    print("test")
+    if not CheckShapeShift(key) then return end
 end
 
 love.keyreleased = function (key)

@@ -6,6 +6,8 @@ local function convertArgs(arg)
         end
         ret = ret .. "}"
         return ret
+    elseif type(arg) == 'nil' then
+        return "nil"
     end
     return tostring(arg)
 end
