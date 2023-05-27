@@ -1,8 +1,6 @@
 local Vector = require('./vector')
 local menu   = require('./menu')
 
-local direction = Vector.new(0, 0)
-
 local keysPressed = {
     z = function ()
         return Vector.new(0, -1)
@@ -24,9 +22,7 @@ local checkMouvment = function (key, press)
 
     local ret = keysPressed[key]()
     if not ret or not Vector.isVector(ret) then return true end
-
-    direction = press and Vector.add(direction, ret) or Vector.sub(direction, ret)
-    print(direction)
+    _G.direction = press and Vector.add(_G.direction, ret) or Vector.sub(_G.direction, ret)
     return true
 end
 
