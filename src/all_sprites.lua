@@ -5,7 +5,7 @@ local all_sprites = function (scenes)
     local sprite = {}
     sprite.image = love.graphics.newImage("assets/perso.png")
     sprite.quad = love.graphics.newQuad(0, 0, sprite.image:getWidth(), sprite.image:getHeight(), sprite.image:getDimensions())
-    table.insert(scenes.game.sprites, sprite)
+    table.insert(_G.scenes.Game.sprites, sprite)
 
     return scenes
 end

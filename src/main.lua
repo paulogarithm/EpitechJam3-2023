@@ -5,24 +5,22 @@ local menu          = require('./menu')
 local all_timers    = require('./all_timers')
 local all_sprites   = require('./all_sprites')
 
-local scenes = {}
-scenes.menu = {name = "menu", sprites = {}}
-scenes.game = {name = "game", sprites = {}}
+_G.scenes = {}
+_G.scenes.Game = {sprites = {}}
 
 love.load = function()
     
-    scenes = all_sprites(scenes)
-    _G.scene = scenes.menu
-    --] _G.scene = scenes.game
+    all_sprites()
+    _G.scene = "Menu"
 
     love.graphics.setBackgroundColor(255, 255, 255)
 end
 
 love.draw = function ()
-    if _G.scene.name == "menu" then
+    if _G.scene == "Menu" then
         return menu.draw()
     end
-    for _, sprite in pairs(_G.scene.sprites) do
+    for _, sprite in pairs(_G.scenes[_G.scene].sprites) do
         love.graphics.draw(sprite.image, sprite.quad, 100, 100)
     end
 end

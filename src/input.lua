@@ -20,6 +20,7 @@ local keysPressed = {
 
 local checkMouvment = function (key, press)
     if not keysPressed[key] then return end
+    if _G.scene ~= "Game" then return end
 
     local ret = keysPressed[key]()
     if not ret or not Vector.isVector(ret) then return true end
