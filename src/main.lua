@@ -7,7 +7,7 @@ local all_sprites   = require('./all_sprites')
 local Vector        = require('./vector')
 
 _G.scenes = {}
-_G.scenes.Game = {sprites = {}, color = {255, 255, 255}}
+_G.scenes.Game = {sprites = {}, color = {255, 255, 255}, maps = {}}
 _G.scenes.Menu = {sprites = {}, color = {0, 0, 0}}
 
 love.load = function()

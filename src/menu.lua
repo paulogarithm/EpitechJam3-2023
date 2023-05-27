@@ -98,12 +98,14 @@ function menu.keypressed(key)
                 menu.selectedOption = #menu.options
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "down" or key == "s" then
             menu.selectedOption = menu.selectedOption + 1
             if menu.selectedOption > #menu.options then
                 menu.selectedOption = 1
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "return" then
             love.audio.play(startSound)
             if menu.selectedOption == 1 then
@@ -116,6 +118,7 @@ function menu.keypressed(key)
                 love.audio.play(startSound)
                 love.event.quit()
             end
+            return true
         end
     elseif menu.currentState == "options" then
         if key == "up" or key == "z" then
@@ -124,12 +127,14 @@ function menu.keypressed(key)
                 menu.selectedOption = #menu.optionsMenu
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "down" or key == "s" then
             menu.selectedOption = menu.selectedOption + 1
             if menu.selectedOption > #menu.optionsMenu then
                 menu.selectedOption = 1
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "return" then
             if menu.selectedOption == 1 then
                 menu.currentState = "soundOptions"
@@ -141,6 +146,7 @@ function menu.keypressed(key)
                 menu.currentState = "main"
                 menu.selectedOption = 2
             end
+            return true
         end
     elseif menu.currentState == "soundOptions" then
         if key == "up" or key == "z" then
@@ -149,12 +155,14 @@ function menu.keypressed(key)
                 menu.selectedOption = #menu.soundOptionsMenu
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "down" or key == "s" then
             menu.selectedOption = menu.selectedOption + 1
             if menu.selectedOption > #menu.soundOptionsMenu then
                 menu.selectedOption = 1
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "return" then
             if menu.selectedOption == 1 then
                 clickSound:setVolume(1)
@@ -170,6 +178,7 @@ function menu.keypressed(key)
                 menu.currentState = "options"
                 menu.selectedOption = 1
             end
+            return true
         end
     elseif menu.currentState == "videoOptions" then
         if key == "up" or key == "z" then
@@ -178,12 +187,14 @@ function menu.keypressed(key)
                 menu.selectedOption = #menu.videoOptionsMenu
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "down" or key == "s" then
             menu.selectedOption = menu.selectedOption + 1
             if menu.selectedOption > #menu.videoOptionsMenu then
                 menu.selectedOption = 1
             end
             love.audio.play(clickSound)
+            return true
         elseif key == "return" then
             if menu.selectedOption == 1 then
                 love.graphics.setBackgroundColor(255, 255, 255)
@@ -193,8 +204,10 @@ function menu.keypressed(key)
                 menu.currentState = "options"
                 menu.selectedOption = 2
             end
+            return true
         end
     end
+    return false
 end
 
 function menu.update(dt)
