@@ -77,5 +77,6 @@ if __name__ == '__main__':
         print(err)
         if exit_code != 256:
             break
+        print(err == b'AL lib: (WW) pulse_load: Failed to load libpulse.so.0\nAL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"\n')
         if err != 'AL lib: (WW) pulse_load: Failed to load libpulse.so.0\nAL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"\n':
             break
