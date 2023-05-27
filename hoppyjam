@@ -62,4 +62,6 @@ if __name__ == '__main__':
         event.set()
         spinner_thread.join()
         print("Love has been installed !")
-    os.system(f"{love_path} ./src/")
+    while True:
+        if os.system(f"{love_path} ./src/") != 256:
+            break
