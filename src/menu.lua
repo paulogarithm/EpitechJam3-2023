@@ -74,13 +74,14 @@ function menu.keypressed(key)
             end
             love.audio.play(clickSound)
         elseif key == "return" then
+            love.audio.play(startSound)
             if menu.selectedOption == 1 then
-                love.audio.play(startSound)
                 _G.scene = "Game"
             elseif menu.selectedOption == 2 then
                 menu.currentState = "options"
                 menu.selectedOption = 1
             elseif menu.selectedOption == 3 then
+                love.audio.play(startSound)
                 love.event.quit()
             end
         end
