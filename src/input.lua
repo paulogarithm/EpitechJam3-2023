@@ -1,4 +1,5 @@
 local Vector = require('./vector')
+local menu   = require('./menu')
 
 local direction = Vector.new(0, 0)
 
@@ -28,8 +29,13 @@ local checkMouvment = function (key, press)
     return true
 end
 
+local checkMenu = function (key)
+    menu.keypressed(key)
+end
+
 love.keypressed = function (key)
     if checkMouvment(key, true) then return end
+    if checkMenu(key) then return end
 end
 
 love.keyreleased = function (key)
