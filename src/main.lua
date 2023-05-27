@@ -30,7 +30,8 @@ love.draw = function ()
         return menu.draw()
     end
     if _G.scene == "Game" then
-        love.graphics.draw(_G.player.image, _G.player.quad, _G.player.x, _G.player.y, _G.player.rotation, _G.player.scale)
+        love.graphics.draw(
+            _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
     end
     for _, sprite in pairs(_G.scenes[_G.scene].sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)

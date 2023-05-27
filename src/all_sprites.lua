@@ -9,8 +9,7 @@ function all_sprites:Create(image, pos, scale, rotation)
     sprite.quad = love.graphics.newQuad(
         0, 0, sprite.image:getWidth(), sprite.image:getHeight(), sprite.image:getDimensions()
     )
-    sprite.x = pos.x
-    sprite.y = pos.y
+    sprite.pos = pos
     sprite.scale = scale
     sprite.rotation = rotation
     return sprite
