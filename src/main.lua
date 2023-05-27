@@ -38,6 +38,9 @@ love.draw = function ()
     end
 end
 
-love.update = function (dt)
+love.update = function(dt)
     timer:Tick(dt)
+    if _G.scene == "Game" then
+        all_sprites:updateEnemy(_G.scenes.Game.sprites[1], _G.player, dt)
+    end
 end

@@ -22,4 +22,24 @@ Vector.isVector = function (val)
     return ((val.x) and (val.y))
 end
 
+Vector.mul = function (v, scalar)
+    local ret = {}
+    ret.x = (v.x or 0) * scalar
+    ret.y = (v.y or 0) * scalar
+    return ret
+end
+
+Vector.length = function (v)
+    return math.sqrt(v.x * v.x + v.y * v.y)
+end
+
+Vector.normalize = function (v)
+    local len = Vector.length(v)
+    if len == 0 then
+        return Vector.new(0, 0)
+    else
+        return Vector.mul(v, 1 / len)
+    end
+end
+
 return Vector
