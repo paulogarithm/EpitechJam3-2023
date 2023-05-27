@@ -29,3 +29,14 @@ _G.table.seek = function (table, callback)
     end
     return nil
 end
+
+function string:split(self, sep)
+    if sep == nil then
+        sep = "%s"
+    end
+    local t = {}
+    for str in self:gmatch("([^"..sep.."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
