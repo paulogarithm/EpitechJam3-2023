@@ -4,6 +4,7 @@ local timer         = require('./timer')
 local menu          = require('./menu')
 local all_timers    = require('./all_timers')
 local all_sprites   = require('./all_sprites')
+local scenechange   = require('./scenechange')
 
 _G.scenes = {}
 _G.scenes.Game = {sprites = {}}
@@ -27,5 +28,4 @@ end
 
 love.update = function (dt)
     timer:Tick(dt)
-    menu.update(dt)
 end
