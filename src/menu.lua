@@ -76,7 +76,7 @@ function menu.keypressed(key)
         elseif key == "return" then
             love.audio.play(startSound)
             if menu.selectedOption == 1 then
-                _G.scene = "Game"
+                _G.changeScene("Game")
             elseif menu.selectedOption == 2 then
                 menu.currentState = "options"
                 menu.selectedOption = 1

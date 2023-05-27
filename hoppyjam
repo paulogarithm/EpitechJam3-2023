@@ -63,5 +63,12 @@ if __name__ == '__main__':
         spinner_thread.join()
         print("Love has been installed !")
     while True:
-        if os.system(f"{love_path} ./src/") != 256:
+        from subprocess import Popen, PIPE
+        process = Popen([love_path, "./src/"], stderr=PIPE)
+        (output, err) = process.communicate()
+        exit_code = process.wait()
+        print(err)
+        if exit_code != 256:
+            break
+        if err != 'AL lib: (WW) pulse_load: Failed to load libpulse.so.0\nAL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"\n':
             break
