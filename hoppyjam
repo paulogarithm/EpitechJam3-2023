@@ -1,0 +1,42 @@
+#!/bin/python3
+
+import os
+import platform
+import requests
+import zipfile
+
+LOVE_URLS = {
+    'Windows': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-win64.zip',
+    'Linux': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-linux-x86_64.tar.gz',
+    'MacOS': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-macos.zip'
+}
+
+def download_love(platform_name):
+    love_url = LOVE_URLS.get(platform_name)
+    if not love_url:
+        raise ValueError(f"La plateforme '{platform_name}' n'est pas prise en charge.")
+
+    archive_path = './boot/love_archive'
+
+    response = requests.get(love_url)
+    response.raise_for_status()
+
+    with open(archive_path, 'wb') as file:
+        file.write(response.content)
+    if platform_name == 'Windows':
+        with zipfile.ZipFile(archive_path, 'r') as zip_ref:
+            zip_ref.extractall('./boot')
+    else:
+        os.system(f"tar -xzf {archive_path} -C ./boot --strip-components=1")
+
+    os.remove(archive_path)
+
+if __name__ == '__main__':
+    platform_name = platform.system()
+    os.makedirs('./boot', exist_ok=True)
+    love_path = './boot/love'
+    if not os.path.exists(love_path):
+        print(f"Downloading Love for '{platform_name}'...")
+        download_love(platform_name)
+        print("Love has been installed !")
+    os.system(f"{love_path} ./src/")
