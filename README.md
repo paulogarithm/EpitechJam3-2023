@@ -4,7 +4,7 @@
   Hoppy Jam
 </h1>
 
-Hoppy Jam is the name for the official [Epitech]() Jam project.
+Hoppy Jam is the name for the official [Epitech](https://epitech.eu/) Jam project.
 The goal ? Create a game in 48 hours, in the theme of Yin Yang. <br><br>
 The game is called Hoppy Jam, coded in lua with the Love2D application.
 
@@ -16,11 +16,11 @@ The game is called Hoppy Jam, coded in lua with the Love2D application.
 
 Even if the game is written in lua, it needs python to be launch and install dependancies for you.
 
-- `Python 3.x` and +
+- [`Python 3.x`](https://www.python.org/download/) and +
 
 OR
 
-- From `Python 2.7` to `Python 3`
+- From [`Python 2.7`](https://www.python.org/download/releases/2.7/) to `Python 3`
 ```
 $ pip install requests
 ```
