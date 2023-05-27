@@ -25,6 +25,7 @@ love.load = function()
     map.Setup()
     _G.changeScene("Menu")
     menu.load()
+    _G.player.color = "white"
 end
 
 love.draw = function ()
