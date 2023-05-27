@@ -4,17 +4,18 @@ import os
 import platform
 import requests
 import zipfile
+import tarfile
 import threading
 import time
 
-chars = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"],
+chars = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"]
 
 def spinner(message: str, event: threading.Event) -> None:
     i = 0
     while not event.is_set():
         time.sleep(.1)
-        i += 1
-        print(chars[0][i % len(chars[0])], message)
+        i = (i + 1) % len(chars[0])
+        print(chars[0][i], message)
         print("\033[10D\033[1A", end='')
     print("\033[2K")
     print("\033[2A")
@@ -22,8 +23,9 @@ def spinner(message: str, event: threading.Event) -> None:
 LOVE_URLS = {
     'Windows': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-win64.zip',
     'Linux': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-linux-x86_64.tar.gz',
-    'MacOS': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-macos.zip'
+    'Darwin': 'https://github.com/love2d/love/releases/download/11.3/love-11.3-macos.zip'
 }
+
 
 def download_love(platform_name):
     love_url = LOVE_URLS.get(platform_name)
@@ -37,11 +39,14 @@ def download_love(platform_name):
 
     with open(archive_path, 'wb') as file:
         file.write(response.content)
-    if platform_name == 'Windows':
+
+    if platform_name == 'Windows' or platform_name == 'Darwin':
         with zipfile.ZipFile(archive_path, 'r') as zip_ref:
             zip_ref.extractall('./boot')
     else:
-        os.system(f"tar -xzf {archive_path} -C ./boot --strip-components=1")
+        with tarfile.open(archive_path, 'r:gz') as tar_ref:
+            tar_ref.extractall('./boot')
+
     os.remove(archive_path)
 
 if __name__ == '__main__':
@@ -53,6 +58,7 @@ if __name__ == '__main__':
     platform_name = platform.system()
     os.makedirs('./boot', exist_ok=True)
     love_path = './boot/love'
+
     if not os.path.exists(love_path):
         event = threading.Event()
         spinner_thread = threading.Thread(target=spinner, args=(f"Downloading Love for '{platform_name}'...", event))
@@ -62,13 +68,4 @@ if __name__ == '__main__':
         event.set()
         spinner_thread.join()
         print("Love has been installed !")
-    while True:
-        from subprocess import Popen, PIPE
-        process = Popen([love_path, "./src/"], stderr=PIPE)
-        (output, err) = process.communicate()
-        exit_code = process.wait()
-        print(err)
-        if exit_code != 256:
-            break
-        if err != 'AL lib: (WW) pulse_load: Failed to load libpulse.so.0\nAL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"\n':
-            break
+    os.system(f"{love_path} ./src/")
