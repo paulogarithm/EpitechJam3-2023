@@ -1,0 +1,18 @@
+player 360 400 black
+
+button 360 50 white
+
+enemy 50 100 black
+enemy 100 100 white
+enemy 150 100 black
+enemy 200 100 white
+enemy 250 100 black
+enemy 300 100 white
+enemy 350 100 black
+enemy 400 100 white
+enemy 450 100 black
+enemy 500 100 white
+enemy 550 100 black
+enemy 600 100 white
+enemy 650 100 black
+enemy 700 100 white
