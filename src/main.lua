@@ -68,6 +68,9 @@ end
 
 love.update = function(dt)
     timer:Tick(dt)
+    if _G.scene == "Menu" then
+        return menu.update(dt)
+    end
     if _G.scene == "Game" then
         for _, s in pairs(_G.scenes.Game.maps[currentMap].sprites) do
             if s.assets ~= "assets/ennemi" then goto continue end
@@ -79,7 +82,7 @@ love.update = function(dt)
             all_sprites:updateSheep(sh, _G.player, dt)
             ::continue::
         end
-        all_sprites:updatePlayer(dt) 
+        all_sprites:updatePlayer(dt)
     end
     if _G.gameOver then
         _G.changeScene("GameOver")
