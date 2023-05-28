@@ -4,6 +4,10 @@ local create_maps = require('create_maps')
 
 --> Defines
 
+_G.CONST = {
+    timerDefault = 180,
+}
+
 _G.map = {
     current = 0,
     list = {}
@@ -77,7 +81,7 @@ function _G.changeScene(name)
 end
 
 function _G.map.CallMap(mapNum)
-    _G.timer.value = 10
+    _G.timer.value = _G.CONST.timerDefault
     _G.timer.enabled = true
 
     _G.scenes.Game.sprites = {}
