@@ -1,5 +1,0 @@
-hoppy-says Congrats ! I will for now on explain how the basics of the game works.
-
-player 360 400 white
-
-bouton 350 50 white

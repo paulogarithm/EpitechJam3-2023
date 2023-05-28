@@ -1,0 +1,9 @@
+hoppy-says Look at this beautiful sheep ! Your color is the opposite of the sheep's. You have to push him in the fence of his color before you go press the button.
+
+player 360 400 white
+
+button 350 50 white
+
+sheep 450 250 black
+
+fence 450 70 black

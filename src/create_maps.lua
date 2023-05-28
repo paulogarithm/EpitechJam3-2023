@@ -7,7 +7,7 @@ local TypeInstance = {
     enemy = "assets/ennemi",
     sheep = "assets/mouton",
     fence = "assets/cage",
-    bouton = "assets/bouton"
+    button = "assets/bouton"
 }
 
 local function FileExists(filename)

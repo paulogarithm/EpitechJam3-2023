@@ -1,0 +1,11 @@
+hoppy-says GG ! Now ry this one by yourself
+
+player 360 400 white
+
+button 350 50 white
+
+sheep 450 250 white
+
+fence 450 70 white
+
+enemy 350 250 white

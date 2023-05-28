@@ -1,0 +1,9 @@
+hoppy-says Trouble seeing the fence ?? Press I to activate or deactivate the dark mode.
+
+player 360 400 black
+
+bouton 350 50 white
+
+sheep 450 250 white
+
+fence 450 70 white

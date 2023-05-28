@@ -1,5 +1,0 @@
-hoppy-says Hello ! I'm Hoppy and welcome to the HoppyJam game. Go press the button overthere to go to the next room
-
-player 360 400 white
-
-bouton 350 50 white

@@ -1,0 +1,9 @@
+hoppy-says Congrats ! This sheep is the same color as you, so he is not afraid of you anymore. Press R to change color and affraid him in order to push him in the fence.
+
+player 360 400 black
+
+button 350 50 white
+
+sheep 450 250 black
+
+fence 450 70 black

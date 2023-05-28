@@ -1,0 +1,11 @@
+hoppy-says He may seems nice but he can become an enemy if you are not the same color as him...
+
+player 360 400 white
+
+bouton 350 50 white
+
+sheep 450 250 black
+
+fence 450 70 black
+
+enemy 350 250 white

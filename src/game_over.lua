@@ -1,3 +1,5 @@
+local Vector = require "src.vector"
+
 _G.scenes.GameOver = {
     sprites = {},
     color = {0, 0, 0}
@@ -7,6 +9,7 @@ function _G.scenes.GameOver:update(dt)
 end
 
 function _G.scenes.GameOver:draw()
+    _G.direction = Vector.new(0, 0)
     local bigFont = love.graphics.newFont(72)
     love.graphics.setFont(bigFont)
     love.graphics.setColor(255, 255, 255)
