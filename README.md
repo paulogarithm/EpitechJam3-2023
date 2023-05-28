@@ -51,5 +51,25 @@ $ cd EpitechJam3-2023
 $ ./hoppyjam
 ```
 
+<br><br>
+
+<h2 align='left'>
+  Issues
+</h2>
+
+The program may crash when you try to launch it. The problem is directly from the Love and is unfixable.
+<br>
+From the statistics we made, a crash has around 19.6% chance to arrive, and here are the crashes so far :
+| Crash Type                            | Count | Percentage |
+|---------------------------------------|-------|------------|
+| No crash                              | 107   | 84.25%     |
+| Failed to initialize filesystem:      | 15    | 11.81%     |
+| Memory Allocation Error (blue screen) | 5     | 3.93%      |
+| Unknown crash that just happend       | 5     | 3.93%      |
+|                                       |       |            |
+| Overall                               | 127   | 100%       |
+
+
+
 
 
