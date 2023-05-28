@@ -108,6 +108,7 @@ function all_sprites:updateSheep(sheep, player, dt)
             if sheep.pos.x >= fenceMinX and sheep.pos.x <= fenceMaxX and sheep.pos.y >= fenceMinY and sheep.pos.y <= fenceMaxY then
                 table.remove(_G.scenes.Game.sprites, indexOf(_G.scenes.Game.sprites, sheep))
                 print("Sheep trapped in the cage")
+                _G.counter = _G.counter + 1
                 break
             end
         end
