@@ -9,6 +9,7 @@ local timer = require('timer')
 local menu = require('menu')
 local all_sprites = require('all_sprites')
 local map = require('create_maps')
+local Vector = require('vector')
 
 love.load = function()
     map.Setup()
@@ -54,6 +55,7 @@ love.update = function(dt)
         all_sprites:updatePlayer(dt)
     end
     if _G.gameOver then
+        _G.direction = Vector.new(0, 0)
         _G.changeScene("GameOver")
     end
 end

@@ -62,7 +62,7 @@ function _G.scenes.GameOver:mousepressed(x, y, button)
     local buttonX = (love.graphics.getWidth() - buttonWidth) / 2
     local buttonY = (love.graphics.getHeight() - buttonHeight) / 2 + buttonHeight * 3
     if (x >= buttonX and x <= buttonX + buttonWidth) and (y >= buttonY and y <= buttonY + buttonHeight) then
-        print("Clicked the button")
         _G.changeScene("Menu")
+        _G.gameOver = false
     end
 end
