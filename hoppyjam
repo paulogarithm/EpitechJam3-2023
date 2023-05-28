@@ -78,6 +78,7 @@ if __name__ == '__main__':
         print("Love has been installed !")
         love_path = search_file_by_name('./boot/', 'love')
         os.system(f"chmod +x {love_path}")
+
     while True:
         from subprocess import Popen, PIPE
         process = Popen([love_path, "./src/"], stderr=PIPE)

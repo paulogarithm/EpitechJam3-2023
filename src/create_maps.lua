@@ -1,3 +1,6 @@
+local all_sprites   = require('./all_sprites')
+local Vector        = require('./vector')
+
 local map = {}
 
 function FileExists(filename)
@@ -9,27 +12,65 @@ end
 function LinesFrom(filename)
     if not FileExists(filename) then return {} end
     local lines = {}
-    for line in io.lines(filename) do 
+    for line in io.lines(filename) do
         lines[#lines + 1] = line
     end
     return lines
 end
 
-local ParseMap = function (filename)
+local TypeInstance = {
+    enemy = "assets/ennemi",
+    sheep = "assets/mouton",
+    fence = "assets/cage",
+}
+
+local ParseMap = function(filename, num)
     local lines = LinesFrom(filename)
+
     for _, l in pairs(lines) do
         local words = string.split(l, " ")
-        print(words)
+        if #words <= 0 then goto continue end
+        if TypeInstance[words[1]] == nil then goto continue end
+        
+        table.insert(_G.scenes.Game.maps[num].sprites, all_sprites:Create(
+            TypeInstance[words[1]],
+            Vector.new(tonumber(words[2]), tonumber(words[3])),
+            .25,
+            0,
+            words[4]
+        ))
+        ::continue::
     end
 end
 
-function map:Create()
+function ScanDir(directory)
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('ls -a "'..directory..'"')
 
+    for filename in pfile:lines() do
+        i = i + 1
+        t[i] = filename
+    end
+    pfile:close()
+    return t
 end
 
 map.Setup = function ()
-    ParseMap("maps/map1.txt")
-    --> table.insert(_G.scenes.Game.maps, map:Create(...))
+    local files = ScanDir("maps")
+    local realFiles = {}
+
+    for _, value in pairs(files) do
+        if string.starts(value, ".") then goto continue end
+        if string.sub(value, -4) ~= ".txt" then goto continue end
+        if not tonumber(value:sub(1, -5)) then goto continue end
+        table.insert(realFiles, value)
+        ::continue::
+    end
+    for _, mapName in pairs(realFiles) do
+        _G.scenes.Game.maps[tonumber(mapName:sub(1, -5))] = {}
+        _G.scenes.Game.maps[tonumber(mapName:sub(1, -5))].sprites = {}
+        ParseMap("maps/" .. mapName, tonumber(mapName:sub(1, -5)))
+    end
 end
 
 return map

@@ -6,7 +6,8 @@ local all_sprites = {}
 function all_sprites:Create(image, pos, scale, rotation, color)
     local sprite = {}
     sprite.assets = image
-    image = (color and color == "white") and (image .. "_2") or image
+    image = (color and color == "black") and (image .. "_2") or image
+    print(color, image)
     sprite.image = love.graphics.newImage(image .. ".png")
     sprite.quad = love.graphics.newQuad(
         0, 0, sprite.image:getWidth(), sprite.image:getHeight(), sprite.image:getDimensions()
@@ -19,17 +20,13 @@ function all_sprites:Create(image, pos, scale, rotation, color)
 end
 
 all_sprites.septup = function ()
-    _G.player = all_sprites:Create("assets/perso", Vector.new(100, 100), .3, 0)
-
-    table.insert(_G.scenes.Game.sprites, all_sprites:Create("assets/ennemi", Vector.new(50, 300), .25, 0, "black"))
-    table.insert(_G.scenes.Game.sprites, all_sprites:Create("assets/ennemi", Vector.new(50, 300), .25, 0, "white"))
-
-    table.insert(_G.scenes.Game.sprites, all_sprites:Create("assets/mouton", Vector.new(50, 300), .25, 0, "black"))
-    table.insert(_G.scenes.Game.sprites, all_sprites:Create("assets/mouton", Vector.new(50, 300), .25, 0, "white"))
-
-    table.insert(_G.scenes.Game.sprites, all_sprites:Create("assets/cage", Vector.new(400, 300), .25, 0, "black"))
-    table.insert(_G.scenes.Game.sprites, all_sprites:Create("assets/cage", Vector.new(450, 350), .25, 0, "white"))
-    return _G.scenes
+    _G.player = all_sprites:Create("assets/perso", Vector.new(100, 100), .3, 0, "white")
+    _G.player.changeColor = function ()
+        local image = "assets/perso"
+        local newColor = _G.player.color == "white" and "black" or "white"
+        _G.player.image = love.graphics.newImage(((newColor  == "black") and (image .. "_2") or image) .. ".png")
+        _G.player.color = newColor
+    end
 end
 
 function all_sprites:updateEnemy(enemy, player, dt)
@@ -72,7 +69,7 @@ local function indexOf(list, element)
 end
 
 function all_sprites:updateSheep(sheep, player, dt)
-    if _G.player.color ~= sheep.color then return end
+    if _G.player.color == sheep.color then return end
     local direction = Vector.sub(sheep.pos, player.pos)
     local distance = Vector.length(direction)
     local threshold = 100
@@ -117,15 +114,13 @@ function all_sprites:updateSheep(sheep, player, dt)
     end
 end
 
-
-
-function all_sprites:updatePlayer(player, dt)
+function all_sprites:updatePlayer(dt)
     local speed = 100
     local screenWidth = love.graphics.getWidth()
     local screenHeight = love.graphics.getHeight()
-
-    local playerWidth = player.image:getWidth() * player.scale
-    local playerHeight = player.image:getHeight() * player.scale
+    
+    local playerWidth = _G.player.image:getWidth() * _G.player.scale
+    local playerHeight = _G.player.image:getHeight() * _G.player.scale
 
     local minX = playerWidth / 2 - 20
     local maxX = screenWidth - playerWidth / 2
@@ -133,11 +128,11 @@ function all_sprites:updatePlayer(player, dt)
     local maxY = screenHeight - playerHeight / 2
 
     if love.keyboard.isDown("right") then
-        player.pos.x = player.pos.x + speed * dt
+        _G.player.pos.x = _G.player.pos.x + speed * dt
     end
 
-    player.pos.x = math.max(minX, math.min(maxX, player.pos.x))
-    player.pos.y = math.max(minY, math.min(maxY, player.pos.y))
+    _G.player.pos.x = math.max(minX, math.min(maxX, _G.player.pos.x))
+    _G.player.pos.y = math.max(minY, math.min(maxY, _G.player.pos.y))
 end
 
 return all_sprites

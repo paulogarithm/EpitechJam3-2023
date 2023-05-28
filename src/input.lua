@@ -49,14 +49,7 @@ local CheckShapeShift = function(key)
     if key ~= "r" then
         return
     end
-
-    if _G.player.color == "white" then
-        _G.player.color = "black"
-    else
-        _G.player.color = "white"
-    end
-    print(_G.player.color)
-
+    _G.player.changeColor()
     return true
 end
 
@@ -72,7 +65,6 @@ local CheckBackgroud = function(key)
     else
         _G.scenes.Game.color = {0, 0, 0}
     end
-    print("test")
     _G.changeScene("Game")
 end
 

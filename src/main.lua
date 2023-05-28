@@ -1,14 +1,18 @@
 _G.scenes = {}
-local input = require('./input')
-local my = require('./my')
+
+require('./input')
+require('./my')
+require('./game_over')
+require('./key_pressed')
+require('./all_timers')
+
 local timer = require('./timer')
 local menu = require('./menu')
-local all_timers = require('./all_timers')
 local all_sprites = require('./all_sprites')
 local Vector = require('./vector')
 local map = require('./create_maps')
-local GameOver = require('./game_over')
-local mousepressed = require('./key_pressed')
+
+local currentMap = 1
 
 _G.scenes.Game = {
     sprites = {},
@@ -17,7 +21,7 @@ _G.scenes.Game = {
 }
 _G.scenes.Menu = {
     sprites = {},
-    color = {0, 0, 0}
+    color = {0, 0, 0},
 }
 
 love.load = function()
@@ -49,22 +53,14 @@ love.draw = function()
         return _G.scenes.GameOver:draw()
     end
 
-    if _G.scene == "Game" then
-        local playerColor = _G.player.color
+    local playerColor = _G.player.color
 
-        if playerColor == "white" then
-            love.graphics.setColor(255, 255, 255)
-        elseif playerColor == "black" then
-            love.graphics.setColor(0, 0, 0)
-        end
-
-        love.graphics.draw(_G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation,
-            _G.player.scale)
-    end
+    love.graphics.draw(
+        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
 
     love.graphics.setColor(255, 255, 255)
 
-    for _, sprite in pairs(_G.scenes[_G.scene].sprites) do
+    for _, sprite in pairs(_G.scenes.Game.maps[currentMap].sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
     end
 end
@@ -72,17 +68,17 @@ end
 love.update = function(dt)
     timer:Tick(dt)
     if _G.scene == "Game" then
-        for _, s in pairs(_G.scenes[_G.scene].sprites) do
+        for _, s in pairs(_G.scenes.Game.maps[currentMap].sprites) do
             if s.assets ~= "assets/ennemi" then goto continue end
-            --all_sprites:updateEnemy(s, _G.player, dt)
+            all_sprites:updateEnemy(s, _G.player, dt)
             ::continue::
         end
-        for _, sh in pairs(_G.scenes[_G.scene].sprites) do
+        for _, sh in pairs(_G.scenes.Game.maps[currentMap].sprites) do
             if sh.assets ~= "assets/mouton" then goto continue end
             all_sprites:updateSheep(sh, _G.player, dt)
             ::continue::
         end
-        all_sprites:updatePlayer(_G.player, dt) 
+        all_sprites:updatePlayer(dt) 
     end
     if _G.gameOver then
         _G.changeScene("GameOver")
