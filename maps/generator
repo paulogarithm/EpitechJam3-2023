@@ -1,0 +1,40 @@
+#!/bin/python3
+
+import random
+
+class Color:
+    BLACK = 1
+    WHITE = 2
+
+def create_instance(instance: str, x: int, y: int, color: Color) -> str:
+    ret = []
+    ret.append(instance)
+    ret.append(str(x))
+    ret.append(str(y))
+    ret.append("black" if color == Color.BLACK else "white")
+    return " ".join(ret)
+
+def create_map(n: int) -> None:
+    entities = []
+    entities.append(create_instance("button", 360, 50, Color.WHITE))
+    entities.append(create_instance("player", 350, 400, Color.WHITE if random.randint(0, 1) else Color.BLACK))
+
+    for _ in range(1, random.randint(2, 10)):
+        entities.append(create_instance(
+            "enemy", random.randint(30, 700), random.randint(50, 200),
+             Color.WHITE if random.randint(0, 1) else Color.BLACK))
+
+    for _ in range(1, random.randint(2, 10)):
+        color = Color.WHITE if random.randint(0, 1) else Color.BLACK
+        entities.append(create_instance(
+            "sheep", random.randint(30, 700), random.randint(50, 200), color))
+        entities.append(create_instance(
+            "fence", random.randint(30, 700), random.randint(50, 200), color))
+
+    with open("map.txt", "w") as file:
+        for entity in entities:
+            file.write(entity + "\n")
+
+
+
+create_map(1)

@@ -38,6 +38,7 @@ love.draw = function()
     end
 
     love.graphics.print("Timer: " .. _G.timer.value, 10, 10)
+    love.graphics.print(_G.map.current, 700, 10)
 
     love.graphics.setColor(255, 255, 255)
 
