@@ -88,8 +88,10 @@ function _G.map.CallMap(mapNum)
     _G.timer.enabled = true
 
     _G.scenes.Game.sprites = {}
+    _G.map.list[mapNum] = {}
     
     _G.map.current = mapNum
     create_maps.ParseMap("maps/" .. tostring(_G.map.current) .. ".txt", _G.map.current)
+    print(_G.map.list[mapNum])
     _G.scenes.Game.sprites = _G.map.list[mapNum]
 end

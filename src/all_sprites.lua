@@ -21,9 +21,8 @@ end
 function all_sprites:UpdateButtonPress(self, player)
     local distance = Vector.length(Vector.sub(self.pos, player.pos))
     local collisionThreshold = 20
-    print(distance)
+    
     if distance <= collisionThreshold then
-        print(_G.map:GetNumberOf("mouton"))
         if _G.map:GetNumberOf("mouton") == 0 then
             map.CallMap(_G.map.current + 1)
         end
@@ -34,14 +33,13 @@ function all_sprites:updateEnemy(enemy, player, dt)
     if _G.player.color == enemy.color then return end
     local direction = Vector.sub(player.pos, enemy.pos)
     direction = Vector.normalize(direction)
-    local speed = 75
+    local speed = 120
 
     enemy.pos = Vector.add(enemy.pos, Vector.mul(direction, speed * dt))
 
     local distance = Vector.length(Vector.sub(player.pos, enemy.pos))
     local collisionThreshold = 10
     if distance <= collisionThreshold then
-        print("Enemy touched the player!")
         _G.changeScene("GameOver")
     end
 
