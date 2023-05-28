@@ -55,10 +55,10 @@ function _G.map:GetNumberOf(stuff)
     if type(stuff) ~= "string" then
         return
     end
-    if not _G.scenes.Game.maps[_G.map.current] then
+    if not _G.currentScene == "Game" then
         return
     end
-    for _, s in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
+    for _, s in pairs(_G.scenes.Game.sprites) do
         if s.asset == "assets/" .. stuff then
             counter = counter + 1
         end
@@ -72,6 +72,7 @@ function _G.changeScene(name)
         _G.gameOver = true
         _G.direction = Vector.new(0, 0)
         _G.timer.enabled = false
+        _G.map.hoppyQuote = nil
     end
     for key, value in pairs(_G.scenes) do
         if key ~= name then
@@ -89,6 +90,6 @@ function _G.map.CallMap(mapNum)
     _G.scenes.Game.sprites = {}
     
     _G.map.current = mapNum
-    create_maps.Setup()
+    create_maps.ParseMap("maps/" .. tostring(_G.map.current) .. ".txt", _G.map.current)
     _G.scenes.Game.sprites = _G.map.list[mapNum]
 end

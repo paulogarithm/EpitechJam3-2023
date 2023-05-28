@@ -22,6 +22,7 @@ love.load = function()
 end
 
 love.draw = function()
+    
     if _G.currentScene == "Menu" then
         return menu.draw()
     end
@@ -40,18 +41,16 @@ love.draw = function()
 
     love.graphics.setColor(255, 255, 255)
 
-    love.graphics.draw(
-        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
-
     for _, sprite in pairs(_G.scenes.Game.sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
     end
-    if _G.scenes.Game.color[1] == 0 then
-        hoppy.displayTextWithPhoto("ta grosse daronne", photo2, 800, 600)
-    else
-        hoppy.displayTextWithPhoto("ta grosse daronne", photo, 800, 600)
+
+    if _G.map.hoppyQuote then
+        hoppy.displayTextWithPhoto(_G.map.hoppyQuote, _G.scenes.Game.color[1] == 0 and photo2 or photo, 800, 600)
     end
 
+    love.graphics.draw(
+        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
 end
 
 love.update = function(dt)
@@ -61,14 +60,13 @@ love.update = function(dt)
     end
     if _G.currentScene == "Game" then
         for _, s in pairs(_G.scenes.Game.sprites) do
-            if s.asset ~= "assets/ennemi" then goto continue end
-            all_sprites:updateEnemy(s, _G.player, dt)
-            ::continue::
-        end
-        for _, sh in pairs(_G.scenes.Game.sprites) do
-            if sh.asset ~= "assets/mouton" then goto continue end
-            all_sprites:updateSheep(sh, _G.player, dt)
-            ::continue::
+            if s.asset == "assets/ennemi" then
+                all_sprites:updateEnemy(s, _G.player, dt)
+            elseif s.asset == "assets/mouton" then
+                all_sprites:updateSheep(s, _G.player, dt)
+            elseif s.asset == "assets/bouton" then
+                all_sprites:UpdateButtonPress(s, _G.player)
+            end
         end
         all_sprites:updatePlayer(dt)
     end

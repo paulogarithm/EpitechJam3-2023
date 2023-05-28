@@ -3,13 +3,20 @@ local Vector        = require('vector')
 
 local map = {}
 
-function FileExists(filename)
+local TypeInstance = {
+    enemy = "assets/ennemi",
+    sheep = "assets/mouton",
+    fence = "assets/cage",
+    bouton = "assets/bouton"
+}
+
+local function FileExists(filename)
     local f = io.open(filename, "rb")
     if f then f:close() end
     return f ~= nil
 end
 
-function LinesFrom(filename)
+local function LinesFrom(filename)
     if not FileExists(filename) then return {} end
     local lines = {}
     for line in io.lines(filename) do
@@ -18,14 +25,20 @@ function LinesFrom(filename)
     return lines
 end
 
-local TypeInstance = {
-    enemy = "assets/ennemi",
-    sheep = "assets/mouton",
-    fence = "assets/cage",
-    bouton = "assets/bouton"
-}
+local function ScanDir(directory)
+    local i, t, popen = 0, {}, io.popen
+    local pfile = popen('ls -a "'..directory..'"')
 
-local ParseMap = function(filename, num)
+    for filename in pfile:lines() do
+        i = i + 1
+        t[i] = filename
+    end
+    pfile:close()
+    return t
+end
+
+map.ParseMap = function(filename, num)
+    if not FileExists(filename) then return end
     local lines = LinesFrom(filename)
 
     for _, l in pairs(lines) do
@@ -34,8 +47,15 @@ local ParseMap = function(filename, num)
 
         if words[1] == "hoppy-says" then
             table.remove(words, 1)
-            _G.map.hoppyQuote = table.concat(words)
+            _G.map.hoppyQuote = table.concat(words, ' ')
             goto continue
+        end
+
+        if words[1] == "player" then
+            _G.player.pos = Vector.new(tonumber(words[2]), tonumber(words[3]))
+            if words[4] ~= _G.player.color then
+                _G.player.changeColor()
+            end
         end
 
         if TypeInstance[words[1]] == nil then goto continue end
@@ -49,18 +69,6 @@ local ParseMap = function(filename, num)
         ))
         ::continue::
     end
-end
-
-function ScanDir(directory)
-    local i, t, popen = 0, {}, io.popen
-    local pfile = popen('ls -a "'..directory..'"')
-
-    for filename in pfile:lines() do
-        i = i + 1
-        t[i] = filename
-    end
-    pfile:close()
-    return t
 end
 
 map.Setup = function ()
@@ -78,7 +86,7 @@ map.Setup = function ()
         local num = tonumber(mapName:sub(1, -5))
         if num == nil then goto continue end
         _G.map.list[num] = {}
-        ParseMap("maps/" .. mapName, num)
+        --x map.ParseMap("maps/" .. mapName, num)
         ::continue::
     end
 end

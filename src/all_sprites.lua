@@ -18,6 +18,18 @@ function all_sprites:Create(image, pos, scale, rotation, color)
     return sprite
 end
 
+function all_sprites:UpdateButtonPress(self, player)
+    local distance = Vector.length(Vector.sub(self.pos, player.pos))
+    local collisionThreshold = 20
+    print(distance)
+    if distance <= collisionThreshold then
+        print(_G.map:GetNumberOf("mouton"))
+        if _G.map:GetNumberOf("mouton") == 0 then
+            map.CallMap(_G.map.current + 1)
+        end
+    end
+end
+
 function all_sprites:updateEnemy(enemy, player, dt)
     if _G.player.color == enemy.color then return end
     local direction = Vector.sub(player.pos, enemy.pos)
