@@ -13,7 +13,11 @@ hoppy.displayTextWithPhoto = function (text, photo, windowWidth, windowHeight)
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(photo, photoX, bandY, 0, photoSize / photo:getWidth(), photoSize / photo:getHeight())
 
-    _ = _G.scenes.Game.color[1] == 0 and love.graphics.setColor(255, 255, 255) or love.graphics.setColor(0, 0, 0)
+    if _G.scenes.Game.color[1] == 0 then
+        love.graphics.setColor(255, 255, 255)
+    else
+        love.graphics.setColor(0, 0, 0)
+    end
 
     love.graphics.printf(text, textX, textY, windowWidth - textX)
     love.graphics.setColor(255, 255, 255)
