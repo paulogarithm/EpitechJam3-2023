@@ -74,9 +74,15 @@ love.update = function(dt)
     if _G.scene == "Game" then
         for _, s in pairs(_G.scenes[_G.scene].sprites) do
             if s.assets ~= "assets/ennemi" then goto continue end
-            all_sprites:updateEnemy(s, _G.player, dt)
+            --all_sprites:updateEnemy(s, _G.player, dt)
             ::continue::
         end
+        for _, sh in pairs(_G.scenes[_G.scene].sprites) do
+            if sh.assets ~= "assets/mouton" then goto continue end
+            all_sprites:updateSheep(sh, _G.player, dt)
+            ::continue::
+        end
+        all_sprites:updatePlayer(_G.player, dt) 
     end
     if _G.gameOver then
         _G.changeScene("GameOver")
