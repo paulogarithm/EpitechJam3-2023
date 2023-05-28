@@ -146,6 +146,7 @@ function menu.keypressed(key)
                 menu.currentState = "main"
                 menu.selectedOption = 2
             end
+            love.audio.play(startSound)
             return true
         end
     elseif menu.currentState == "soundOptions" then
@@ -178,6 +179,7 @@ function menu.keypressed(key)
                 menu.currentState = "options"
                 menu.selectedOption = 1
             end
+            love.audio.play(startSound)
             return true
         end
     elseif menu.currentState == "videoOptions" then
@@ -204,6 +206,7 @@ function menu.keypressed(key)
                 menu.currentState = "options"
                 menu.selectedOption = 2
             end
+            love.audio.play(startSound)
             return true
         end
     end
@@ -211,7 +214,6 @@ function menu.keypressed(key)
 end
 
 function menu.update(dt)
-    -- Update menu logic here
 end
 
 function menu.stop()

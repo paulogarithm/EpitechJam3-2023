@@ -79,11 +79,8 @@ end
 
 love.keypressed = function(key)
     if checkMouvment(key, true) then return end
-    print(1)
     if not checkMenu(key) then return end
-    print(1)
     if CheckShapeShift(key) then return end
-    print(1)
     if not CheckBackgroud(key) then return end
 end
 

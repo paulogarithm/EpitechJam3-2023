@@ -5,6 +5,7 @@ local all_sprites = {}
 
 function all_sprites:Create(image, pos, scale, rotation, color)
     local sprite = {}
+    sprite.assets = image
     image = (color and color == "white") and (image .. "_2") or image
     sprite.image = love.graphics.newImage(image .. ".png")
     sprite.quad = love.graphics.newQuad(
@@ -39,7 +40,7 @@ function all_sprites:updateEnemy(enemy, player, dt)
     local collisionThreshold = 10 -- Adjust the collision threshold as needed
     if distance <= collisionThreshold then
         print("Enemy touched the player!")
-        -- Add your desired actions here when the enemy touches the player
+        _G.gameOver= true
     end
 end
 

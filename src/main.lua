@@ -18,6 +18,11 @@ _G.scenes.Menu = {
     color = {0, 0, 0}
 }
 
+_G.scenes.GameOver = {
+    sprites = {},
+    color = {0, 0, 0}
+}
+
 love.load = function()
     all_sprites.septup()
     _G.direction = Vector.new(0, 0)
@@ -35,11 +40,16 @@ love.load = function()
     _G.changeScene("Menu")
     menu.load()
     _G.player.color = "white"
+    _G.gameOver = false
 end
 
 love.draw = function()
     if _G.scene == "Menu" then
         return menu.draw()
+    end
+
+    if _G.gameOver then
+        return gameover.draw()
     end
 
     if _G.scene == "Game" then
@@ -65,6 +75,14 @@ end
 love.update = function(dt)
     timer:Tick(dt)
     if _G.scene == "Game" then
-        all_sprites:updateEnemy(_G.scenes.Game.sprites[1], _G.player, dt)
+        for _, s in pairs(_G.scenes[_G.scene].sprites) do
+            if s.assets ~= "assets/ennemi" then goto continue end
+            all_sprites:updateEnemy(s, _G.player, dt)
+            ::continue::
+        end
+    end
+    if _G.gameOver then
+        _G.changeScene("Menu")
+        _G.gameOver = false
     end
 end
