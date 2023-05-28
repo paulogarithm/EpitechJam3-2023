@@ -94,7 +94,8 @@ function all_sprites:updateSheep(sheep, player, dt)
             local fenceMinY = fence.pos.y - fenceHeight / 2
             local fenceMaxY = fence.pos.y + fenceHeight / 2
 
-            if sheep.pos.x >= fenceMinX and sheep.pos.x <= fenceMaxX and sheep.pos.y >= fenceMinY and sheep.pos.y <= fenceMaxY then
+            if sheep.pos.x >= fenceMinX and sheep.pos.x <= fenceMaxX
+            and sheep.pos.y >= fenceMinY and sheep.pos.y <= fenceMaxY then
                 table.remove(_G.scenes.Game.sprites, indexOf(_G.scenes.Game.sprites, sheep))
                 print("Sheep trapped in the cage")
                 _G.counter = _G.counter + 1
@@ -116,10 +117,6 @@ function all_sprites:updatePlayer(dt)
     local maxX = screenWidth - playerWidth / 2
     local minY = playerHeight / 2 - 20
     local maxY = screenHeight - playerHeight / 2
-
-    if love.keyboard.isDown("right") then
-        _G.player.pos.x = _G.player.pos.x + speed * dt
-    end
 
     _G.player.pos.x = math.max(minX, math.min(maxX, _G.player.pos.x))
     _G.player.pos.y = math.max(minY, math.min(maxY, _G.player.pos.y))

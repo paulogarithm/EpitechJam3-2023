@@ -10,8 +10,6 @@ local menu = require('menu')
 local all_sprites = require('all_sprites')
 local map = require('create_maps')
 
-local currentMap = 1
-
 love.load = function()
     map.Setup()
     _G.changeScene("Menu")
@@ -32,7 +30,7 @@ love.draw = function()
 
     love.graphics.setColor(255, 255, 255)
 
-    for _, sprite in pairs(_G.scenes.Game.maps[currentMap].sprites) do
+    for _, sprite in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
     end
 end
@@ -43,12 +41,12 @@ love.update = function(dt)
         return menu.update(dt)
     end
     if _G.scene == "Game" then
-        for _, s in pairs(_G.scenes.Game.maps[currentMap].sprites) do
+        for _, s in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
             if s.asset ~= "assets/ennemi" then goto continue end
             all_sprites:updateEnemy(s, _G.player, dt)
             ::continue::
         end
-        for _, sh in pairs(_G.scenes.Game.maps[currentMap].sprites) do
+        for _, sh in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
             if sh.asset ~= "assets/mouton" then goto continue end
             all_sprites:updateSheep(sh, _G.player, dt)
             ::continue::
