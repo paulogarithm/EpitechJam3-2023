@@ -1,0 +1,10 @@
+player 360 400 black
+
+button 360 50 white
+
+fence 160 50 white
+fence 560 50 black
+
+sheep 160 400 black
+sheep 560 400 white
+
