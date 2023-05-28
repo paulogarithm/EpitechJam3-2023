@@ -1,3 +1,4 @@
+_G.scenes = {}
 local input = require('./input')
 local my = require('./my')
 local timer = require('./timer')
@@ -6,19 +7,15 @@ local all_timers = require('./all_timers')
 local all_sprites = require('./all_sprites')
 local Vector = require('./vector')
 local map = require('./create_maps')
+local GameOver = require('./game_over')
+local mousepressed = require('./key_pressed')
 
-_G.scenes = {}
 _G.scenes.Game = {
     sprites = {},
     color = {255, 255, 255},
     maps = {}
 }
 _G.scenes.Menu = {
-    sprites = {},
-    color = {0, 0, 0}
-}
-
-_G.scenes.GameOver = {
     sprites = {},
     color = {0, 0, 0}
 }
@@ -49,7 +46,7 @@ love.draw = function()
     end
 
     if _G.gameOver then
-        return gameover.draw()
+        return _G.scenes.GameOver:draw()
     end
 
     if _G.scene == "Game" then
@@ -82,7 +79,6 @@ love.update = function(dt)
         end
     end
     if _G.gameOver then
-        _G.changeScene("Menu")
-        _G.gameOver = false
+        _G.changeScene("GameOver")
     end
 end

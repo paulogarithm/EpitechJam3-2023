@@ -1,0 +1,6 @@
+!: mouton noir
+#: mouton blanc
+*: ennemi blanc
+-: ennemi noir
+:: spawn
+?: bouton final
