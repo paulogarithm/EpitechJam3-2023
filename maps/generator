@@ -1,6 +1,7 @@
 #!/bin/python3
 
 import random
+import sys
 
 class Color:
     BLACK = 1
@@ -31,10 +32,10 @@ def create_map(n: int) -> None:
         entities.append(create_instance(
             "fence", random.randint(30, 700), random.randint(50, 200), color))
 
-    with open("map.txt", "w") as file:
+    with open(str(n) + ".txt", "w") as file:
         for entity in entities:
             file.write(entity + "\n")
 
 
-
-create_map(1)
+for i in range(int(sys.argv[1]) if len(sys.argv) > 1 else 1, int(sys.argv[2]) if len(sys.argv) > 2 else 10):
+    create_map(i)

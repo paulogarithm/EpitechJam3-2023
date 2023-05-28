@@ -1,3 +1,14 @@
-hoppy-says You win ! Congrats, but in fact, isn't you the sheep that just follows my instrcution after all ? ...
-
-player 400 300 white
+button 360 50 white
+player 350 400 white
+enemy 220 136 white
+enemy 252 103 white
+enemy 309 161 white
+enemy 505 57 white
+enemy 225 90 black
+enemy 665 184 white
+enemy 303 149 white
+enemy 646 172 white
+sheep 405 136 white
+fence 147 127 white
+sheep 229 151 white
+fence 73 183 white
