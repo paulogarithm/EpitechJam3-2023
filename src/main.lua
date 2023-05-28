@@ -11,10 +11,22 @@ local all_sprites = require('all_sprites')
 local map = require('create_maps')
 local Vector = require('vector')
 
+local countdownTimer
+
 love.load = function()
     map.Setup()
     _G.changeScene("Menu")
     menu.load()
+
+    countdownTimer = timer:Create("Countdown", 1, function()
+        _G.timerValue = _G.timerValue - 1
+        if _G.timerValue <= 0 then
+            _G.timerValue = 0
+            _G.changeScene("GameOver")
+        end
+    end)
+
+    _G.timerValue = 180
 end
 
 love.draw = function()
@@ -26,10 +38,18 @@ love.draw = function()
         return _G.scenes.GameOver:draw()
     end
 
-    love.graphics.draw(
-        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
+    if _G.scenes.Game.color[1] == 0 and _G.scenes.Game.color[2] == 0 and _G.scenes.Game.color[3] == 0 then
+        love.graphics.setColor(255, 255, 255)
+    else
+        love.graphics.setColor(0, 0, 0)
+    end
+
+    love.graphics.print("Timer: " .. _G.timerValue, 10, 10)
 
     love.graphics.setColor(255, 255, 255)
+
+    love.graphics.draw(
+        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
 
     for _, sprite in pairs(_G.scenes.Game.sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)

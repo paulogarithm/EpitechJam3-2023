@@ -68,7 +68,6 @@ local CheckBackgroud = function(key)
     _G.changeScene("Game")
 end
 
-
 love.keypressed = function(key)
     if checkMouvment(key, true) then return end
     if not checkMenu(key) then return end
