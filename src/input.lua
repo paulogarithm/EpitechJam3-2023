@@ -60,22 +60,35 @@ local CheckShapeShift = function(key)
     return true
 end
 
+local CheckBackgroud = function(key)
+    if _G.scene ~= "Game" then
+        return
+    end
+    if key ~= "i" then
+        return
+    end
+    if _G.scenes.Game.color[1] == 0 and _G.scenes.Game.color[2] == 0 and _G.scenes.Game.color[3] == 0 then
+        _G.scenes.Game.color = {255, 255, 255}
+    else
+        _G.scenes.Game.color = {0, 0, 0}
+    end
+    print("test")
+    _G.changeScene("Game")
+end
+
+
 love.keypressed = function(key)
-    if checkMouvment(key, true) then
-        return
-    end
-    if not checkMenu(key) then
-        return
-    end
-    if not CheckShapeShift(key) then
-        return
-    end
+    if checkMouvment(key, true) then return end
+    print(1)
+    if not checkMenu(key) then return end
+    print(1)
+    if CheckShapeShift(key) then return end
+    print(1)
+    if not CheckBackgroud(key) then return end
 end
 
 love.keyreleased = function(key)
-    if checkMouvment(key, false) then
-        return
-    end
+    if checkMouvment(key, false) then return end
 end
 
 return {}
