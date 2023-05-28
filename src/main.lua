@@ -30,10 +30,18 @@ love.draw = function()
         return _G.scenes.GameOver:draw()
     end
 
-    love.graphics.draw(
-        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
+    if _G.scenes.Game.color[1] == 0 and _G.scenes.Game.color[2] == 0 and _G.scenes.Game.color[3] == 0 then
+        love.graphics.setColor(255, 255, 255)
+    else
+        love.graphics.setColor(0, 0, 0)
+    end
+
+    love.graphics.print("Timer: " .. _G.timer.value, 10, 10)
 
     love.graphics.setColor(255, 255, 255)
+
+    love.graphics.draw(
+        _G.player.image, _G.player.quad, _G.player.pos.x, _G.player.pos.y, _G.player.rotation, _G.player.scale)
 
     for _, sprite in pairs(_G.scenes.Game.sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
@@ -63,9 +71,5 @@ love.update = function(dt)
             ::continue::
         end
         all_sprites:updatePlayer(dt)
-    end
-    if _G.gameOver then
-        _G.direction = Vector.new(0, 0)
-        _G.changeScene("GameOver")
     end
 end
