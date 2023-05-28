@@ -38,6 +38,7 @@ love.load = function()
     menu.load()
     _G.player.color = "white"
     _G.gameOver = false
+    _G.counter = 0
 end
 
 love.draw = function()
