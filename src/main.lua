@@ -5,11 +5,15 @@ require('game_over')
 require('key_pressed')
 require('all_timers')
 
+
+local hoppy = require('display_hoppy')
 local timer = require('timer')
 local menu = require('menu')
 local all_sprites = require('all_sprites')
 local map = require('create_maps')
-
+local Vector = require('vector')
+local photo = love.graphics.newImage("assets/hoppy.png")
+local photo2 = love.graphics.newImage("assets/hoppy_2.png")
 
 love.load = function()
     map.Setup()
@@ -42,6 +46,12 @@ love.draw = function()
     for _, sprite in pairs(_G.scenes.Game.sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
     end
+    if _G.scenes.Game.color[1] == 0 then
+        hoppy.displayTextWithPhoto("ta grosse daronne", photo2, 800, 600)
+    else
+        hoppy.displayTextWithPhoto("ta grosse daronne", photo, 800, 600)
+    end
+
 end
 
 love.update = function(dt)
