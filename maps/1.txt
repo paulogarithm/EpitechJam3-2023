@@ -1,8 +1,5 @@
-hoppy-says hello world
+hoppy-says Hello ! I'm Hoppy and welcome to the HoppyJam game. Go press the button overthere to go to the next room
 
-enemy 129 261 black
+player 360 400 white
 
-fence 127 127 white
-sheep 129 261 white
-
-bouton 400 30 white
+bouton 350 50 white
