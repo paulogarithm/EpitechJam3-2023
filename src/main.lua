@@ -8,7 +8,6 @@ require('all_timers')
 local timer = require('timer')
 local menu = require('menu')
 local all_sprites = require('all_sprites')
-local Vector = require('vector')
 local map = require('create_maps')
 
 local currentMap = 1
@@ -45,12 +44,12 @@ love.update = function(dt)
     end
     if _G.scene == "Game" then
         for _, s in pairs(_G.scenes.Game.maps[currentMap].sprites) do
-            if s.assets ~= "assets/ennemi" then goto continue end
+            if s.asset ~= "assets/ennemi" then goto continue end
             all_sprites:updateEnemy(s, _G.player, dt)
             ::continue::
         end
         for _, sh in pairs(_G.scenes.Game.maps[currentMap].sprites) do
-            if sh.assets ~= "assets/mouton" then goto continue end
+            if sh.asset ~= "assets/mouton" then goto continue end
             all_sprites:updateSheep(sh, _G.player, dt)
             ::continue::
         end

@@ -41,6 +41,7 @@ function _G.map:GetNumberOf(stuff)
     local counter = 0
 
     if type(stuff) ~= "string" then return end
+    if not _G.scenes.Game.maps[_G.map.current] then return end
     for _, s in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
         if s.asset == "assets/" .. stuff then
             counter = counter + 1

@@ -5,7 +5,7 @@ local all_sprites = {}
 
 function all_sprites:Create(image, pos, scale, rotation, color)
     local sprite = {}
-    sprite.assets = image
+    sprite.asset = image
     image = (color and color == "black") and (image .. "_2") or image
     sprite.image = love.graphics.newImage(image .. ".png")
     sprite.quad = love.graphics.newQuad(
@@ -85,7 +85,7 @@ function all_sprites:updateSheep(sheep, player, dt)
 
     for i = #_G.scenes.Game.sprites, 1, -1 do
         local fence = _G.scenes.Game.sprites[i]
-        if fence.assets == "assets/cage" and fence.color == sheep.color then
+        if fence.asset == "assets/cage" and fence.color == sheep.color then
             local fenceWidth = fence.image:getWidth() * fence.scale
             local fenceHeight = fence.image:getHeight() * fence.scale
 

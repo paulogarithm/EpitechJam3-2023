@@ -110,6 +110,7 @@ function menu.keypressed(key)
             love.audio.play(startSound)
             if menu.selectedOption == 1 then
                 _G.changeScene("Game")
+                _G.map.current = 1
                 menuSong:stop()
             elseif menu.selectedOption == 2 then
                 menu.currentState = "options"
