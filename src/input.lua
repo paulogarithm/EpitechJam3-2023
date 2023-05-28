@@ -1,5 +1,5 @@
-local Vector = require('./vector')
-local menu = require('./menu')
+local Vector = require('vector')
+local menu = require('menu')
 
 local keysPressed = {
     z = function()

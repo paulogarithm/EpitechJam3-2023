@@ -1,4 +1,4 @@
-local timer     = require('./timer')
+local timer     = require('timer')
 
 local all_timers = {}
 

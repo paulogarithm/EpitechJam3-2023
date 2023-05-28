@@ -1,5 +1,5 @@
-local timer = require('./timer')
-local Vector = require('./vector')
+local timer = require('timer')
+local Vector = require('vector')
 
 local all_sprites = {}
 
@@ -7,7 +7,6 @@ function all_sprites:Create(image, pos, scale, rotation, color)
     local sprite = {}
     sprite.assets = image
     image = (color and color == "black") and (image .. "_2") or image
-    print(color, image)
     sprite.image = love.graphics.newImage(image .. ".png")
     sprite.quad = love.graphics.newQuad(
         0, 0, sprite.image:getWidth(), sprite.image:getHeight(), sprite.image:getDimensions()
@@ -17,16 +16,6 @@ function all_sprites:Create(image, pos, scale, rotation, color)
     sprite.rotation = rotation or 0
     sprite.color = color or "white"
     return sprite
-end
-
-all_sprites.septup = function ()
-    _G.player = all_sprites:Create("assets/perso", Vector.new(100, 100), .3, 0, "white")
-    _G.player.changeColor = function ()
-        local image = "assets/perso"
-        local newColor = _G.player.color == "white" and "black" or "white"
-        _G.player.image = love.graphics.newImage(((newColor  == "black") and (image .. "_2") or image) .. ".png")
-        _G.player.color = newColor
-    end
 end
 
 function all_sprites:updateEnemy(enemy, player, dt)
@@ -96,7 +85,7 @@ function all_sprites:updateSheep(sheep, player, dt)
 
     for i = #_G.scenes.Game.sprites, 1, -1 do
         local fence = _G.scenes.Game.sprites[i]
-        if fence.assets == "assets/cage" and fence.color ~= sheep.color then
+        if fence.assets == "assets/cage" and fence.color == sheep.color then
             local fenceWidth = fence.image:getWidth() * fence.scale
             local fenceHeight = fence.image:getHeight() * fence.scale
 

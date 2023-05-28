@@ -1,5 +1,5 @@
-local all_sprites   = require('./all_sprites')
-local Vector        = require('./vector')
+local all_sprites   = require('all_sprites')
+local Vector        = require('vector')
 
 local map = {}
 
