@@ -2,7 +2,7 @@ hoppy-says Trouble seeing the fence ?? Press I to activate or deactivate the dar
 
 player 360 400 black
 
-bouton 350 50 white
+button 350 50 white
 
 sheep 450 250 white
 

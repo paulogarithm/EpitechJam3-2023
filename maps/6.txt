@@ -2,7 +2,7 @@ hoppy-says He may seems nice but he can become an enemy if you are not the same 
 
 player 360 400 white
 
-bouton 350 50 white
+button 350 50 white
 
 sheep 450 250 black
 
