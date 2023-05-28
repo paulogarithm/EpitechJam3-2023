@@ -110,7 +110,7 @@ function all_sprites:updatePlayer(dt)
     local speed = 100
     local screenWidth = love.graphics.getWidth()
     local screenHeight = love.graphics.getHeight()
-    
+
     local playerWidth = _G.player.image:getWidth() * _G.player.scale
     local playerHeight = _G.player.image:getHeight() * _G.player.scale
 

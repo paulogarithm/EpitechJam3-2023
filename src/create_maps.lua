@@ -31,7 +31,7 @@ local ParseMap = function(filename, num)
         local words = string.split(l, " ")
         if #words <= 0 then goto continue end
         if TypeInstance[words[1]] == nil then goto continue end
-        
+
         table.insert(_G.map.list[num], all_sprites:Create(
             TypeInstance[words[1]],
             Vector.new(tonumber(words[2]), tonumber(words[3])),
