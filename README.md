@@ -51,6 +51,7 @@ $ cd EpitechJam3-2023
 $ ./hoppyjam
 ```
 
+<br><br>
 
 <h2 align='left'>
   Issues
