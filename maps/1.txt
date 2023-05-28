@@ -1,6 +1,8 @@
-hoppy says hello world
+hoppy-says hello world
 
 enemy 129 261 black
 
 fence 127 127 white
 sheep 129 261 white
+
+bouton 400 30 white

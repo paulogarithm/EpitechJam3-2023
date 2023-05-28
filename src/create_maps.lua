@@ -22,6 +22,7 @@ local TypeInstance = {
     enemy = "assets/ennemi",
     sheep = "assets/mouton",
     fence = "assets/cage",
+    bouton = "assets/bouton"
 }
 
 local ParseMap = function(filename, num)
@@ -30,6 +31,13 @@ local ParseMap = function(filename, num)
     for _, l in pairs(lines) do
         local words = string.split(l, " ")
         if #words <= 0 then goto continue end
+
+        if words[1] == "hoppy-says" then
+            table.remove(words, 1)
+            _G.map.hoppyQuote = table.concat(words)
+            goto continue
+        end
+
         if TypeInstance[words[1]] == nil then goto continue end
         
         table.insert(_G.map.list[num], all_sprites:Create(

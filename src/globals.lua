@@ -10,13 +10,15 @@ _G.CONST = {
 
 _G.map = {
     current = 0,
-    list = {}
+    list = {},
+    hoppyQuote = nil,
 }
 
 _G.currentScene = nil
 
 _G.scenes = {
     Game = {
+        hoppyQuote = nil,
         sprites = {},
         color = { 255, 255, 255 },
     },
