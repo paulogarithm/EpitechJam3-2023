@@ -2,7 +2,7 @@ local Vector = require('vector')
 local all_sprites = require('all_sprites')
 local create_maps = require('create_maps')
 
--- Defines
+--> Defines
 
 _G.map = {
     current = 0,
@@ -36,7 +36,12 @@ _G.gameOver = false
 
 _G.counter = 0
 
--- Functions
+_G.timer = {
+    value = 0,
+    enabled = false
+}
+
+--> Functions
 
 function _G.map:GetNumberOf(stuff)
     local counter = 0
@@ -57,6 +62,11 @@ end
 
 function _G.changeScene(name)
     _G.currentScene = name
+    if name == "GameOver" then
+        _G.gameOver = true
+        _G.direction = Vector.new(0, 0)
+        _G.timer.enabled = false
+    end
     for key, value in pairs(_G.scenes) do
         if key ~= name then
             goto continue
@@ -67,8 +77,12 @@ function _G.changeScene(name)
 end
 
 function _G.map.CallMap(mapNum)
-    _G.map.current = mapNum
+    _G.timer.value = 10
+    _G.timer.enabled = true
+
     _G.scenes.Game.sprites = {}
+    
+    _G.map.current = mapNum
     create_maps.Setup()
     _G.scenes.Game.sprites = _G.map.list[mapNum]
 end

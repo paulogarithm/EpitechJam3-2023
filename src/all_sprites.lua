@@ -30,7 +30,7 @@ function all_sprites:updateEnemy(enemy, player, dt)
     local collisionThreshold = 10
     if distance <= collisionThreshold then
         print("Enemy touched the player!")
-        _G.gameOver = true
+        _G.changeScene("GameOver")
     end
 
     local screenWidth = love.graphics.getWidth()
