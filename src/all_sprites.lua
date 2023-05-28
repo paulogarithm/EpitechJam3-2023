@@ -59,6 +59,7 @@ end
 
 function all_sprites:updateSheep(sheep, player, dt)
     if _G.player.color == sheep.color then return end
+
     local direction = Vector.sub(sheep.pos, player.pos)
     local distance = Vector.length(direction)
     local threshold = 100

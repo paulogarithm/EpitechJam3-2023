@@ -23,7 +23,7 @@ _G.print = function (...)
     io.write(formattedText .. "\n")
 end
 
-_G.table.seek = function (table, callback)
+table.seek = function (table, callback)
     for key, val in table do
         if callback(key, val) == true then
             return key
@@ -32,7 +32,21 @@ _G.table.seek = function (table, callback)
     return nil
 end
 
-function string.split(str, sep)
+table.copy = function (orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in pairs(orig) do
+            copy[orig_key] = orig_value
+        end
+    else
+        copy = orig
+    end
+    return copy
+end
+
+string.split = function(str, sep)
     if sep == nil then
         sep = "%s"
     end
@@ -43,6 +57,6 @@ function string.split(str, sep)
     return t
 end
 
-function string.starts(String, Start)
+string.starts = function(String, Start)
     return string.sub(String,1,string.len(Start))==Start
 end

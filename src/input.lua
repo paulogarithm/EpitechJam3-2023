@@ -20,7 +20,7 @@ local checkMouvment = function(key, press)
     if not keysPressed[key] then
         return
     end
-    if _G.scene ~= "Game" then
+    if _G.currentScene ~= "Game" then
         return
     end
 
@@ -33,7 +33,7 @@ local checkMouvment = function(key, press)
 end
 
 local checkMenu = function(key)
-    if _G.scene ~= "Menu" then
+    if _G.currentScene ~= "Menu" then
         return true
     end
     if menu.keypressed(key) then
@@ -43,7 +43,7 @@ local checkMenu = function(key)
 end
 
 local CheckShapeShift = function(key)
-    if _G.scene ~= "Game" then
+    if _G.currentScene ~= "Game" then
         return
     end
     if key ~= "r" then
@@ -54,7 +54,7 @@ local CheckShapeShift = function(key)
 end
 
 local CheckBackgroud = function(key)
-    if _G.scene ~= "Game" then
+    if _G.currentScene ~= "Game" then
         return
     end
     if key ~= "i" then

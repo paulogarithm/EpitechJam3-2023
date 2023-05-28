@@ -1,18 +1,20 @@
 local Vector        = require('vector')
 local all_sprites   = require('all_sprites')
-
+local create_maps   = require('create_maps')
 
 --> Defines
 
 _G.map = {
     current = 0,
+    list = {}
 }
+
+_G.currentScene = nil
 
 _G.scenes = {
     Game = {
         sprites = {},
         color = {255, 255, 255},
-        maps = {}
     },
     Menu = {
         sprites = {},
@@ -51,7 +53,7 @@ function _G.map:GetNumberOf(stuff)
 end
 
 function _G.changeScene(name)
-    _G.scene = name
+    _G.currentScene = name
     for key, value in pairs(_G.scenes) do
         if key ~= name then
             goto continue
@@ -61,3 +63,9 @@ function _G.changeScene(name)
     end
 end
 
+function _G.map.CallMap(mapNum)
+    _G.map.current = mapNum
+    _G.scenes.Game.sprites = {}
+    create_maps.Setup()
+    _G.scenes.Game.sprites = _G.map.list[mapNum]
+end

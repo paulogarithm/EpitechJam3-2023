@@ -15,6 +15,12 @@ menu.optionsMenu = {"Sound", "Video", "Back"}
 menu.soundOptionsMenu = {"Sound On", "Sound Off", "Back"}
 menu.videoOptionsMenu = {"Light Mode", "Dark Mode", "Back"}
 
+local function HitPlay()
+    _G.changeScene("Game")
+    _G.map.CallMap(1)
+    menuSong:stop()
+end
+
 function menu.draw()
     love.graphics.setBackgroundColor(0, 0, 0)
     love.graphics.setColor(255, 255, 255)
@@ -109,9 +115,7 @@ function menu.keypressed(key)
         elseif key == "return" then
             love.audio.play(startSound)
             if menu.selectedOption == 1 then
-                _G.changeScene("Game")
-                _G.map.current = 1
-                menuSong:stop()
+                HitPlay()
             elseif menu.selectedOption == 2 then
                 menu.currentState = "options"
                 menu.selectedOption = 1

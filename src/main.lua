@@ -17,7 +17,7 @@ love.load = function()
 end
 
 love.draw = function()
-    if _G.scene == "Menu" then
+    if _G.currentScene == "Menu" then
         return menu.draw()
     end
 
@@ -30,23 +30,23 @@ love.draw = function()
 
     love.graphics.setColor(255, 255, 255)
 
-    for _, sprite in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
+    for _, sprite in pairs(_G.scenes.Game.sprites) do
         love.graphics.draw(sprite.image, sprite.quad, sprite.pos.x, sprite.pos.y, sprite.rotation, sprite.scale)
     end
 end
 
 love.update = function(dt)
     timer:Tick(dt)
-    if _G.scene == "Menu" then
+    if _G.currentScene == "Menu" then
         return menu.update(dt)
     end
-    if _G.scene == "Game" then
-        for _, s in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
+    if _G.currentScene == "Game" then
+        for _, s in pairs(_G.scenes.Game.sprites) do
             if s.asset ~= "assets/ennemi" then goto continue end
             all_sprites:updateEnemy(s, _G.player, dt)
             ::continue::
         end
-        for _, sh in pairs(_G.scenes.Game.maps[_G.map.current].sprites) do
+        for _, sh in pairs(_G.scenes.Game.sprites) do
             if sh.asset ~= "assets/mouton" then goto continue end
             all_sprites:updateSheep(sh, _G.player, dt)
             ::continue::

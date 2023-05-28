@@ -32,7 +32,7 @@ local ParseMap = function(filename, num)
         if #words <= 0 then goto continue end
         if TypeInstance[words[1]] == nil then goto continue end
         
-        table.insert(_G.scenes.Game.maps[num].sprites, all_sprites:Create(
+        table.insert(_G.map.list[num], all_sprites:Create(
             TypeInstance[words[1]],
             Vector.new(tonumber(words[2]), tonumber(words[3])),
             .25,
@@ -67,9 +67,11 @@ map.Setup = function ()
         ::continue::
     end
     for _, mapName in pairs(realFiles) do
-        _G.scenes.Game.maps[tonumber(mapName:sub(1, -5))] = {}
-        _G.scenes.Game.maps[tonumber(mapName:sub(1, -5))].sprites = {}
-        ParseMap("maps/" .. mapName, tonumber(mapName:sub(1, -5)))
+        local num = tonumber(mapName:sub(1, -5))
+        if num == nil then goto continue end
+        _G.map.list[num] = {}
+        ParseMap("maps/" .. mapName, num)
+        ::continue::
     end
 end
 
